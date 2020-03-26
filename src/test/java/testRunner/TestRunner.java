@@ -8,8 +8,8 @@ import cucumber.api.CucumberOptions;
 @CucumberOptions
         (
 
-                features = ".//Features/Login.feature",
-                glue= "stepDefinations",
+                features = "src/test/Features/Login.feature",
+                glue= "",
                 dryRun = false,
                 monochrome = true,
                 plugin = {"pretty","html:test-output"}
