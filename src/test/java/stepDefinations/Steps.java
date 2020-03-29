@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -30,16 +31,21 @@ public class Steps {
 
         try{
             DesiredCapabilities capability = new DesiredCapabilities();
-            System.out.println("--------------Inside else---------------------");
-            System.out.println(new File("Drivers/chromedriver.exe").getAbsolutePath());
             System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver.exe");
             System.out.println("Launching docker url");
-            ChromeOptions chromeOptions = new ChromeOptions();
+            //Chrome
+            /*ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("--disable-extensions");
             chromeOptions.addArguments("test-type");
             capability.setPlatform(Platform.LINUX);
-            //capability.setBrowserName("firefox");
-            capability.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+            capability.setCapability(ChromeOptions.CAPABILITY, chromeOptions);*/
+            //Firefox
+            FirefoxOptions firefoxOptions = new FirefoxOptions();
+            firefoxOptions.setHeadless(true);
+            capability.merge(firefoxOptions);
+            capability.setCapability("marionette", true);
+
+
             if(docker.trim().toLowerCase().contains("local")){
                 System.setProperty("webdriver.chrome.driver",
                         System.getProperty("user.dir")+"/Drivers/chromedriver.exe");
@@ -51,7 +57,8 @@ public class Steps {
 
             }
 
-        }catch(Exception e){
+        }
+        catch(Exception e){
             System.out.println("Launch browser failed");
         }
 
